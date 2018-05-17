@@ -100,19 +100,19 @@ print()
 
 print("--- GENERATION DE MOTS ---")
 langues = ["allemand","anglais","elfique","espagnol","neerlandais","suedois"]
-i = int(input("Choisissez une langue : 1 = Allemand, 2 = Anglais, 3 = Elfique, 4 = Espagnol, 5 = Neerlandais, 6 = Suedois"))
+i = int(input("Choisissez une langue : 1 = Allemand, 2 = Anglais, 3 = Elfique, 4 = Espagnol, 5 = Neerlandais, 6 = Suedois : "))
 while i > (len(langues)):
     i = int(input("erreur, réessayez :"))
 h = HMM.load("hmm_"+langues[i-1])
 print(langues[i-1])
-nb_mots = int(input("Combien de mots voulez-vous générer?"))
+nb_mots = int(input("Combien de mots voulez-vous générer ? "))
 for i in range(nb_mots):
     n = random.randint(3, 8)
     print(h.gen_mot_lettres(n))
 
 
 print("---PREDICTION LANGUE D'UN MOT---")
-mot = input("Entrez un mot en allemand, anglais, elfique, espagnol, neerlandais ou suedois :")
+mot = input("Entrez un mot en allemand, anglais, elfique, espagnol, neerlandais ou suedois : ")
 print('Langue la plus probable pour ce mot = ',reconnaitre_langue(mot))
 
 

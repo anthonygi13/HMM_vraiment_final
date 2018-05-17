@@ -101,10 +101,14 @@ def logV_vs_intialisation(nb_init_max, nb_iter, nbS, S, nbL=26): # trace la logv
     nb_init = []
     logV = []
     for i in range(1, nb_init_max + 1):
+        print("init", i)
         try:
             h = HMM.bw2(nbS, nbL, S, nb_iter)
             nb_init.append(i)
             logV.append(h.logV(S))
+            print("###################################")
+            print(logV[-1])
+            print("###################################")
         except KeyboardInterrupt:
             break
     plt.plot(nb_init, logV)
@@ -204,7 +208,7 @@ def efficiency_vs_nb_state_variante(nbFolds, S, nbSMin, nbSMax, limite, nbInit,
 def reconnaitre_langue(w):
     mot = chaine_to_tuple(w)
     langues = ['anglais', 'allemand', 'espagnol', 'neerlandais', 'suedois', 'elfique']
-    anglais = HMM.load('hmm_anglais')
+    anglais = HMM.load('hmm_anglais_parfait')
     allemand = HMM.load('hmm_allemand')
     espagnol = HMM.load('hmm_espagnol')
     neerlandais = HMM.load('hmm_neerlandais')
@@ -232,23 +236,25 @@ def reconnaitre_langue(w):
 
 
 
-#h = HMM.bw3(45, 26, text_to_list('espagnol2000'), 55, 12).save("hmm_espagnol")
-#h = HMM.bw3(45, 26, text_to_list('suedois2000'), 55, 12).save("hmm_suedois")
-#h = HMM.bw3(45, 26, text_to_list('neerlandais2000'), 55, 12).save("hmm_neerlandais")
-#h = HMM.bw3(45, 26, text_to_list('neerlandais2000'), 55, 12).save("hmm_neerlandais")
-#h = HMM.bw3(45, 26, text_to_list('elfique'), 55, 12).save("hmm_elfique")
-h = HMM.bw3(100, 26, text_to_list('anglais2000'), 55, 15).save("hmm_anglais_v2")
-#h = HMM.bw3(100, 26, text_to_list('allemand2000'), 55, 15).save("hmm_allemand_v2")
-#h = HMM.bw3(100, 26, text_to_list('suedois2000'), 55, 15).save("hmm_suedois_v2")
-h = HMM.bw3(100, 26, text_to_list('neerlandais2000'), 55, 15).save("hmm_neerlandais_v2")
+#HMM.bw3(45, 26, text_to_list('espagnol2000'), 55, 12).save("hmm_espagnol")
+#HMM.bw3(45, 26, text_to_list('suedois2000'), 55, 12).save("hmm_suedois")
+#HMM.bw3(45, 26, text_to_list('neerlandais2000'), 55, 12).save("hmm_neerlandais")
+#HMM.bw3(45, 26, text_to_list('neerlandais2000'), 55, 12).save("hmm_neerlandais")
+#HMM.bw3(45, 26, text_to_list('elfique'), 55, 12).save("hmm_elfique")
+#HMM.bw3(100, 26, text_to_list('anglais2000'), 55, 15).save("hmm_anglais_v2")
+#HMM.bw3(100, 26, text_to_list('allemand2000'), 55, 15).save("hmm_allemand_v2")
+#HMM.bw3(100, 26, text_to_list('suedois2000'), 55, 15).save("hmm_suedois_v2")
+#HMM.bw3(100, 26, text_to_list('neerlandais2000'), 55, 15).save("hmm_neerlandais_v2")
+
+#HMM.bw3(45, 26, text_to_list('anglais2000'), 200, 20).save("hmm_anglais_parfait")
+
+#logV_vs_intialisation(100, 400, 45, text_to_list('anglais2000'))
 
 
-"""
-h = HMM.load("hmm_anglais")
+h = HMM.load("hmm_anglais_parfait")
 
 print(h.logV(text_to_list('anglais2000')))
 
-for i in range(1000000):
+for i in range(100):
     n = random.randint(3, 8)
     print(h.gen_mot_lettres(n))
-"""

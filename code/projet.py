@@ -11,6 +11,13 @@ import scipy.optimize as opt
 import random
 
 
+def chaine_to_tuple(mot):
+    w = ()
+    for i in range(len(mot)):
+        w += (HMM.lettre_to_num(mot[i]),)
+    return w
+
+
 def text_to_list(adr): # transforme un document texte contenant des mot en liste de mots compréhensibles par le HMM
     """
     :param adr: addresse du fichier texte à convertir
@@ -22,10 +29,7 @@ def text_to_list(adr): # transforme un document texte contenant des mot en liste
     data.close()
     L2 = []
     for w in L:
-        w2 = ()
-        for i in range (len(w)):
-            w2 += (HMM.lettre_to_num(w[i]),)
-        L2 += [w2]
+        L2 += [chaine_to_tuple(w)]
     return L2[:-1]
 
 
@@ -34,7 +38,6 @@ def xval(nbFolds, S, nbL, nbSMin, nbSMax, nbIter, nbInit):
     l = np.random.permutation(n)
     lvOpt = -float("inf")
     for nbS in range(nbSMin, nbSMax + 1):
-        print(nbS)
         lv = 0
         for i in range(1,nbFolds+1):
             f1 = int((i-1)*n/nbFolds)
@@ -65,7 +68,6 @@ def logV_vs_nb_iteration_bw1(nb_iter_max, nbS, S, nbL=26): # trace la log vraise
     nb_iter = [0]
     logV = [hmm.logV(S)]
     for i in range(1, nb_iter_max + 1):
-        print(i)
         try:
             hmm.bw1(S)
             nb_iter.append(i)
@@ -78,10 +80,7 @@ def logV_vs_nb_iteration_bw1(nb_iter_max, nbS, S, nbL=26): # trace la log vraise
     titre = 'anglais2000' + ' / nombre d\'etat = ' + str(nbS)
     plt.title(titre)
     optimizedParameters, pcov = opt.curve_fit(func, nb_iter, logV)
-    print(optimizedParameters)
 
-    print(nb_iter)
-    print(logV)
 
     # Use the optimized parameters to plot the best fit
     plt.plot(nb_iter, [func(x, optimizedParameters[0], optimizedParameters[1], optimizedParameters[2]) for x in nb_iter], label='-' + str(optimizedParameters[0]) + 'exp(-x/' + str(optimizedParameters[1]) + ') + ' + str(-25580 + optimizedParameters[2]))
@@ -150,7 +149,6 @@ def efficiency_vs_nb_state(nbFolds, S, nbSMin, nbSMax, nbIter, nbInit, nbL=26): 
     nb_state = []
     logV = []
     for nbS in range(nbSMin, nbSMax + 1):
-        print(nbS)
         try:
             lv = 0
             for i in range(1, nbFolds + 1):
@@ -162,7 +160,6 @@ def efficiency_vs_nb_state(nbFolds, S, nbSMin, nbSMax, nbIter, nbInit, nbL=26): 
                 h = HMM.bw3(nbS, nbL, learn, nbIter, nbInit)
                 lv += h.logV(test)
             logV.append(lv / nbFolds)
-            print("logV", lv/nbFolds)
             nb_state.append(nbS)
         except KeyboardInterrupt:
             break
@@ -187,7 +184,6 @@ def efficiency_vs_nb_state_variante(nbFolds, S, nbSMin, nbSMax, limite, nbInit,
     nb_state = []
     logV = []
     for nbS in range(nbSMin, nbSMax + 1):
-        print(nbS)
         try:
             lv = 0
             for i in range(1, nbFolds + 1):
@@ -199,25 +195,25 @@ def efficiency_vs_nb_state_variante(nbFolds, S, nbSMin, nbSMax, limite, nbInit,
                 h = HMM.bw3_variante(nbS, nbL, learn, nbInit, limite)
                 lv += h.logV(test)
             logV.append(lv / nbFolds)
-            print("logV", lv / nbFolds)
             nb_state.append(nbS)
         except KeyboardInterrupt:
             break
     plt.plot(nb_state, logV)
     plt.show()
 
-def reconnaitre_langue(mot):
-    langues = ['de l\'anglais', 'de l\'allemand', 'de l\'espagnol', 'du neerlandais', 'du suedois', 'de l\'elfique']
-    anglais = HMM.load('hmm_anglais.txt')
-    allemand = HMM.load('hmm_allemand.txt')
-    espagnol = HMM.load('hmm_espagnol.txt')
-    neerlandais = HMM.load('hmm_neerlandais.txt')
-    suedois = HMM.load('hmm_suedois.txt')
-    elfique = HMM.load('hmm_elfique.txt')
-    proba = max(anglais.logV(mot), allemand.logV(mot), espagnol.logV(mot), neerlandais.logV(mot), suedois.logV(mot),
-                 elfique.logV(mot))
-    langue = langues.index(proba)
-    return ('Le mot entré est probablement', langue)
+def reconnaitre_langue(w):
+    mot = chaine_to_tuple(w)
+    langues = ['anglais', 'allemand', 'espagnol', 'neerlandais', 'suedois', 'elfique']
+    anglais = HMM.load('hmm_anglais')
+    allemand = HMM.load('hmm_allemand')
+    espagnol = HMM.load('hmm_espagnol')
+    neerlandais = HMM.load('hmm_neerlandais')
+    suedois = HMM.load('hmm_suedois')
+    elfique = HMM.load('hmm_elfique')
+    proba = np.array([anglais.logV([mot]), allemand.logV([mot]), espagnol.logV([mot]), neerlandais.logV([mot]), suedois.logV([mot]),
+                 elfique.logV([mot])])
+    langue = langues[np.argmax(proba)]
+    return langue
 
 #L = text_to_list('anglais2000')
 #print('toc', xval(20, L, 26, 2, 10, 5, 5))
@@ -240,7 +236,7 @@ def reconnaitre_langue(mot):
 #h = HMM.bw3(45, 26, text_to_list('suedois2000'), 55, 12).save("hmm_suedois")
 #h = HMM.bw3(45, 26, text_to_list('neerlandais2000'), 55, 12).save("hmm_neerlandais")
 #h = HMM.bw3(45, 26, text_to_list('neerlandais2000'), 55, 12).save("hmm_neerlandais")
-h = HMM.bw3(45, 26, text_to_list('elfique'), 55, 12).save("hmm_elfique")
+#h = HMM.bw3(45, 26, text_to_list('elfique'), 55, 12).save("hmm_elfique")
 
 """
 h = HMM.load("hmm_anglais")

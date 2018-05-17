@@ -470,6 +470,7 @@ class HMM:
             raise ValueError("N doit être un entier positif")
         hmm = HMM.gen_HMM(nbL, nbS)
         for i in range(N):
+            print('iter',i)
             hmm.bw1(S)
         return hmm
 
@@ -488,6 +489,7 @@ class HMM:
         max_logV = -float('inf')
         hmm = None
         for i in range(M):
+            print('init',i)
             h = HMM.bw2(nbS, nbL, S, N)
             logV = h.logV(S)
             if max_logV < logV:

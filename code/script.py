@@ -17,7 +17,7 @@ def entree():
         except ValueError:
             print("Oups ! Vous devez entrer un nombre entier strictement positif, essayez encore...")
     return x
-
+'''
 
 listeBW = []
 input("Bonjour. Vous allez découvrir le code réalisé par la Communauté de l\'info pour le projet HMM. Pour continuer appuyez sur entrée.")

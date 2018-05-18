@@ -224,7 +224,8 @@ class HMM:
             self.__transitions) + '\n' + 'The emissions : ' + '\n' + str(self.__emissions)
 
     @staticmethod
-    def draw_multinomial(array): #liste proba, sort indice en fonction 0,2;0,3.0,4 = il sprt 0 avec proba 0,2, 1 avec proba 0,3 ...
+    def draw_multinomial(
+            array):  # liste proba, sort indice en fonction 0,2;0,3.0,4 = il sprt 0 avec proba 0,2, 1 avec proba 0,3 ...
         """
         :param array: Tableau de probabilites dont la somme des vleurs vaut 1
         :return: Un indice du tableau avec une probabilite egale e la valeur correspondant e l'indice
@@ -306,7 +307,7 @@ class HMM:
             return False
         return True
 
-    def pfw(self, w): #liste d'observable 1 -N , prend un endroit , proba qu'il sort tou ce qui a eu avant
+    def pfw(self, w):  # liste d'observable 1 -N , prend un endroit , proba qu'il sort tou ce qui a eu avant
         """""
         :param w: tuple d'observables
         :return: Probabilite d'obtenir cette liste
@@ -317,7 +318,7 @@ class HMM:
             f = np.dot(f, self.transitions) * self.emissions[:, w[i]]
         return np.sum(f)
 
-    def pbw(self, w): #liste d'observable 1 -N , prend un endroit , proba qu'il sort tou ce qui a eu apres
+    def pbw(self, w):  # liste d'observable 1 -N , prend un endroit , proba qu'il sort tou ce qui a eu apres
         """
         :param w: tuple d'observables
         :return: Probabilite d'obtenir cette liste
@@ -328,7 +329,7 @@ class HMM:
             b = np.dot(self.transitions, self.emissions[:, w[i + 1]] * b)
         return np.sum(self.initial * b * self.emissions[:, w[0]])
 
-    def predit(self, w): #sort la lettre qui a le plus de chance d'apparaitre apres une liste d'observable
+    def predit(self, w):  # sort la lettre qui a le plus de chance d'apparaitre apres une liste d'observable
         """
         :param w: tuple d'observables
         :return: L'observable ayant la plus grande probabilite d'apparaitre ensuite
@@ -340,7 +341,7 @@ class HMM:
         p = np.dot(h, self.emissions)
         return np.argmax(p)
 
-    def viterbi(self, w): #le chemin le plus probable d'un mot
+    def viterbi(self, w):  # le chemin le plus probable d'un mot
         """
         :param w: tuple d'observables
         :return: La liste d'etats la plus probable correspondant e ce chemin
@@ -371,7 +372,7 @@ class HMM:
             p_1 = copy.deepcopy(p_2)
         return chemin_2[np.argmax(p_2)], np.log(np.max(p_2))
 
-    def f(self, w):#proba de les t premiere lettre du mot pour finir dans l etat k
+    def f(self, w):  # proba de les t premiere lettre du mot pour finir dans l etat k
         """
         :param w: tuple d'observable
         :return: Matrice de dimension nb_d'etats * len(w) correspondant au f du polycopie 4.4
@@ -383,7 +384,7 @@ class HMM:
 
         return f
 
-    def b(self, w): #proba en partant de k pour finir le mot
+    def b(self, w):  # proba en partant de k pour finir le mot
         """
         :param w: tuple d'observable
         :return: Matrice de dimension nb_d'etats * len(w) correspondant au b du polycopie 4.4
@@ -430,7 +431,7 @@ class HMM:
             xi[:, :, t] = xi[:, :, t] / np.sum(xi[:, :, t])
         return xi
 
-    def bw1(self, S): #modifie hmm pour augmenter la vraisemblance des mot entres
+    def bw1(self, S):  # modifie hmm pour augmenter la vraisemblance des mot entres
         """
         :param S: Liste de tuple d'observables
         :return: Modifie les valeurs des matrices du HMM pour augmenter la vraisemblance de S
@@ -457,7 +458,7 @@ class HMM:
         self.initial = pi / pi.sum()
 
     @staticmethod
-    def bw2(nbS, nbL, S, N): #creer un hmm , et avec bw1, l'ameliore
+    def bw2(nbS, nbL, S, N):  # creer un hmm , et avec bw1, l'ameliore
         """
         :param nbS: Nombre d'etats
         :param nbL: Nombre de sommets
@@ -474,7 +475,7 @@ class HMM:
         return hmm
 
     @staticmethod
-    def bw3(nbS, nbL, S, N, M):# creer M hmm avec bw2, et prend le meilleur
+    def bw3(nbS, nbL, S, N, M):  # creer M hmm avec bw2, et prend le meilleur
         """
         :param nbS: Nombre d'etats
         :param nbL: Nombre de sommets
@@ -532,7 +533,7 @@ class HMM:
         return hmm
 
     @staticmethod
-    def gen_vect(n):#vecteur de longueur n somme = 1
+    def gen_vect(n):  # vecteur de longueur n somme = 1
         if type(n) != int or n < 0:
             raise ValueError("M doit être un entier strictement positif")
         if n == 1:
@@ -547,9 +548,8 @@ class HMM:
             v[n - 1] = 1 - L[n - 2][1]
         return v
 
-
     @staticmethod
-    def gen_HMM(nbL, nbS): # creer hmm aleatoire
+    def gen_HMM(nbL, nbS):  # creer hmm aleatoire
         initial = HMM.gen_vect(nbS)
         transitions = np.zeros((nbS, nbS))
         for i in range(nbS):
@@ -559,8 +559,7 @@ class HMM:
             emissions[i, :] = HMM.gen_vect(nbL)
         return HMM(nbL, nbS, initial, transitions, emissions)
 
-
-    def logV(self, S): # vraisemblance d'un mot
+    def logV(self, S):  # vraisemblance d'un mot
         """
         :param S: Liste de tuple d'observables
         :return: La log vraisemblance de S
@@ -570,7 +569,6 @@ class HMM:
             self.check_w(w)
             somme += np.log(self.pfw(w))
         return somme
-
 
     @staticmethod
     def num_to_lettre(n):
@@ -585,7 +583,6 @@ class HMM:
         alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
                     'u', 'v', 'w', 'x', 'y', 'z']
         return alphabet[n]
-
 
     @staticmethod
     def lettre_to_num(lettre):
@@ -607,4 +604,3 @@ class HMM:
         for l in word:
             mot += HMM.num_to_lettre(l)
         return mot
-

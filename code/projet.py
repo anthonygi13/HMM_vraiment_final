@@ -250,7 +250,7 @@ def reconnaitre_langue(w):
 
 #logV_vs_intialisation(100, 400, 45, text_to_list('anglais2000'))
 
-
+'''
 h = HMM.load("hmm_anglais_parfait")
 
 print(h.logV(text_to_list('anglais2000')))
@@ -258,3 +258,4 @@ print(h.logV(text_to_list('anglais2000')))
 for i in range(100):
     n = random.randint(3, 8)
     print(h.gen_mot_lettres(n))
+'''

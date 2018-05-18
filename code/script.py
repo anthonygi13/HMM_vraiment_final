@@ -7,6 +7,7 @@
 from classe import *
 from projet import *
 
+
 def entree():
     while True:
         try:
@@ -20,15 +21,17 @@ def entree():
 
 
 listeBW = []
-input("Bonjour. Vous allez découvrir le code réalisé par la Communauté de l\'info pour le projet HMM. Pour continuer appuyez sur entrée.")
+input(
+    "Bonjour. Vous allez découvrir le code réalisé par la Communauté de l\'info pour le projet HMM. Pour continuer appuyez sur entrée.")
 print()
 
-choice = int(input("Que voulez-vous faire ? 1 = Tester les fonctionnalités de la classe, 2 = Générer un mot dans une langue choisie, 3 = Prédire la langue d'un mot, 4 = Arrêter : "))
+choice = int(input(
+    "Que voulez-vous faire ? 1 = Tester les fonctionnalités de la classe, 2 = Générer un mot dans une langue choisie, 3 = Prédire la langue d'un mot, 4 = Arrêter : "))
 
-while choice < 1 or choice > 4 :
+while choice < 1 or choice > 4:
     choice = int(input("réponse incorrecte, réessayez : "))
 
-while choice != 4 :
+while choice != 4:
     if choice == 1:
         print("---TEST DE LA CLASSE HMM---")
         while True:
@@ -115,7 +118,8 @@ while choice != 4 :
 
         langues = ["allemand", "anglais", "elfique", "espagnol", "neerlandais", "suedois"]
 
-        i = int(input("Choisissez une langue : 1 = Allemand, 2 = Anglais, 3 = Elfique, 4 = Espagnol, 5 = Neerlandais, 6 = Suedois : "))
+        i = int(input(
+            "Choisissez une langue : 1 = Allemand, 2 = Anglais, 3 = Elfique, 4 = Espagnol, 5 = Neerlandais, 6 = Suedois : "))
 
         while i > (len(langues)):
             i = int(input("erreur, réessayez : "))
@@ -141,10 +145,12 @@ while choice != 4 :
 
         print()
 
-    choice = int(input("Que voulez-vous faire ? 1 = Tester les fonctionnalités de la classe, 2 = Générer un mot dans une langue choisie, 3 = Prédire la langue d'un mot, 4 = Arrêter : "))
+    choice = int(input(
+        "Que voulez-vous faire ? 1 = Tester les fonctionnalités de la classe, 2 = Générer un mot dans une langue choisie, 3 = Prédire la langue d'un mot, 4 = Arrêter : "))
 
     while choice < 1 or choice > 4:
         choice = int(input("réponse incorrecte, réessayez : "))
 
-
 print("Merci d'avoir utilisé notre programme !")
+
+

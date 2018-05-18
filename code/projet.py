@@ -211,7 +211,7 @@ def reconnaitre_langue(w):
     """
     mot = chaine_to_tuple(w)
     langues = ['anglais', 'allemand', 'espagnol', 'neerlandais', 'suedois', 'elfique']
-    anglais = HMM.load('hmm_anglais')
+    anglais = HMM.load('hmm_anglais_parfait')
     allemand = HMM.load('hmm_allemand')
     espagnol = HMM.load('hmm_espagnol')
     neerlandais = HMM.load('hmm_neerlandais')

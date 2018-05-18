@@ -498,7 +498,8 @@ class HMM:
 
     @staticmethod
     def bw2_variante(nbS, nbL, S, limite, n=10):
-        # Même fonction que bw2 mais s'arrête automatiquement lorsque la log vraisemblance augmente d'une valeur inferieure
+        # Même fonction que bw2 mais s'arrête automatiquement lorsque la log vraisemblance
+        # augmente d'une valeur inferieure
         # au parametre limite en N iterations
 
         if (type(n) != int or n <= 0):
@@ -517,7 +518,8 @@ class HMM:
 
     @staticmethod
     def bw3_variante(nbS, nbL, S, M, limite, n=10):
-        # Même fonction que bw2 mais s'arrête automatiquement lorsque la log vraisemblance augmente d'une valeur inferieure
+        # Même fonction que bw2 mais s'arrête automatiquement lorsque la log vraisemblance
+        # augmente d'une valeur inferieure
         # au parametre limite en 10 iterations
 
         if type(M) != int or M < 0:

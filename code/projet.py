@@ -271,3 +271,4 @@ def afficher_mots_anglais(n):
 # HMM.bw3(45, 26, text_to_list('anglais2000'), 200, 20).save("hmm_anglais_parfait")
 
 # logV_vs_intialisation(100, 400, 45, text_to_list('anglais2000'))
+

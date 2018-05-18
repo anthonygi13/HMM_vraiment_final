@@ -133,7 +133,7 @@ while choice != 4 :
         choix = "o"
 
         while choix == 'o':
-            mot = input("Entrez un mot en allemand, anglais, elfique, espagnol, neerlandais ou suedois : ")
+            mot = input("Entrez un mot en allemand, anglais, elfique, espagnol, neerlandais ou suedois : ").lower()
             print('Langue la plus probable pour ce mot = ', reconnaitre_langue(mot))
             choix = input("Voulez-vous prédire la langue d'un autre mot (o/n) ? ")
             while choix not in ['o', 'n']:

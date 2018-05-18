@@ -24,6 +24,7 @@ input("Bonjour. Vous allez découvrir le code réalisé par la Communauté de l\
 print()
 
 choice = int(input("Que voulez-vous faire ? 1 = Tester les fonctionnalités de la classe, 2 = Générer un mot dans une langue choisie, 3 = Prédire la langue d'un mot, 4 = Arrêter : "))
+
 while choice < 1 or choice > 4 :
     choice = int(input("réponse incorrecte, réessayez : "))
 
@@ -111,9 +112,11 @@ while choice != 4 :
 
     if choice == 2:
         print("--- GENERATION DE MOTS ---")
+
         langues = ["allemand", "anglais", "elfique", "espagnol", "neerlandais", "suedois"]
-        i = int(input(
-            "Choisissez une langue : 1 = Allemand, 2 = Anglais, 3 = Elfique, 4 = Espagnol, 5 = Neerlandais, 6 = Suedois : "))
+
+        i = int(input("Choisissez une langue : 1 = Allemand, 2 = Anglais, 3 = Elfique, 4 = Espagnol, 5 = Neerlandais, 6 = Suedois : "))
+
         while i > (len(langues)):
             i = int(input("erreur, réessayez : "))
         h = HMM.load("hmm_" + langues[i - 1])
@@ -122,6 +125,7 @@ while choice != 4 :
         for i in range(nb_mots):
             n = random.randint(3, 8)
             print(h.gen_mot_lettres(n))
+
         print()
 
     if choice == 3:
@@ -138,6 +142,7 @@ while choice != 4 :
         print()
 
     choice = int(input("Que voulez-vous faire ? 1 = Tester les fonctionnalités de la classe, 2 = Générer un mot dans une langue choisie, 3 = Prédire la langue d'un mot, 4 = Arrêter : "))
+
     while choice < 1 or choice > 4:
         choice = int(input("réponse incorrecte, réessayez : "))
 

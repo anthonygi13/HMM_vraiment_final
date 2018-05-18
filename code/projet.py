@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 import scipy.optimize as opt
 import random
 
-
 def chaine_to_tuple(mot):
     w = ()
     for i in range(len(mot)):
@@ -206,6 +205,10 @@ def efficiency_vs_nb_state_variante(nbFolds, S, nbSMin, nbSMax, limite, nbInit,
     plt.show()
 
 def reconnaitre_langue(w):
+    """
+    :param w: mot dont la langue doit être reconnue
+    :return: haine de caractère correspondant à la langue la plus probable
+    """
     mot = chaine_to_tuple(w)
     langues = ['anglais', 'allemand', 'espagnol', 'neerlandais', 'suedois', 'elfique']
     anglais = HMM.load('hmm_anglais_parfait')
@@ -218,6 +221,17 @@ def reconnaitre_langue(w):
                  elfique.logV([mot])])
     langue = langues[np.argmax(proba)]
     return langue
+
+
+def afficher_mots_anglais(n):
+    """
+    :param n: nombre de mots anglais à générer puis à afficher
+    """
+    h = HMM.load("hmm_anglais_parfait")
+    for i in range(n):
+        n = random.randint(3, 8)
+        print(h.gen_mot_lettres(n))
+
 
 #L = text_to_list('anglais2000')
 #print('toc', xval(20, L, 26, 2, 10, 5, 5))
@@ -250,12 +264,3 @@ def reconnaitre_langue(w):
 
 #logV_vs_intialisation(100, 400, 45, text_to_list('anglais2000'))
 
-'''
-h = HMM.load("hmm_anglais_parfait")
-
-print(h.logV(text_to_list('anglais2000')))
-
-for i in range(100):
-    n = random.randint(3, 8)
-    print(h.gen_mot_lettres(n))
-'''

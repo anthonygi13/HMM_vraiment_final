@@ -479,8 +479,8 @@ class HMM:
         :param nbS: Nombre d'etats
         :param nbL: Nombre de sommets
         :param S: Liste de tuple d'observables
-        :param N: nombre d iterations
-        :param M: nombre d initialisation differentes
+        :param N: nombre d iterations == nombre de fois que bw1 est repeter pour tout les hmm
+        :param M: nombre d initialisation differentes == nombre de hmm que l'on creer avec bW2
         :return: Le HHMi avec 0 <= i <= M-1 qui maximise la vraisemblance de S
         """
         if type(M) != int or M < 0:

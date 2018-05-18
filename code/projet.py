@@ -121,7 +121,8 @@ def logV_vs_intialisation(nb_init_max, nb_iter, nbS, S,
 
 
 def logV_vs_initialisation_variante(nb_init_max, limite, nbS, S,
-                                    nbL=26):  # trace la logvraisemblance optimale en fonction de différentes initialisations
+                                    nbL=26):  # trace la logvraisemblance optimale en fonction de différentes
+                                                # initialisations
     """
     :param nb_init_max: nombre d'initialisations différentes à réaliser
     :param limite: limite pour bw2_variante
@@ -144,7 +145,8 @@ def logV_vs_initialisation_variante(nb_init_max, limite, nbS, S,
 
 
 def efficiency_vs_nb_state(nbFolds, S, nbSMin, nbSMax, nbIter, nbInit,
-                           nbL=26):  # trace la log vraisemblance moyenne sur les echantillons tests en fonction du nombre d'état
+                           nbL=26):  # trace la log vraisemblance moyenne sur les echantillons tests en fonction du
+                                    # nombre d'état
     """
     :param nbFolds: cardinal de la partition de S
     :param S: liste de mots sur laquelle on entraine notre HMM
@@ -179,7 +181,8 @@ def efficiency_vs_nb_state(nbFolds, S, nbSMin, nbSMax, nbIter, nbInit,
 
 
 def efficiency_vs_nb_state_variante(nbFolds, S, nbSMin, nbSMax, limite, nbInit,
-                                    nbL=26):  # trace la log vraisemblance moyenne sur les echantillons tests en fonction du nombre d'état
+                                    nbL=26):  # trace la log vraisemblance moyenne sur les echantillons tests en
+                                                # fonction du nombre d'état
     """
     :param nbFolds: cardinal de la partition de S
     :param S: liste de mots sur laquelle on entraine notre HMM
@@ -242,7 +245,6 @@ def afficher_mots_anglais(n):
         n = random.randint(3, 8)
         print(h.gen_mot_lettres(n))
 
-
 # L = text_to_list('anglais2000')
 # print('toc', xval(20, L, 26, 2, 10, 5, 5))
 
@@ -255,8 +257,6 @@ def afficher_mots_anglais(n):
 
 
 # logV_vs_nb_iteration_bw1(1000, 45, text_to_list('anglais2000'))
-
-
 
 # HMM.bw3(45, 26, text_to_list('espagnol2000'), 55, 12).save("hmm_espagnol")
 # HMM.bw3(45, 26, text_to_list('suedois2000'), 55, 12).save("hmm_suedois")
